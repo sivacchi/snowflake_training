@@ -1,0 +1,51 @@
+name: SV_DAY18_ORDERS
+description: 注文データのセマンティックビュー（Day18トライアル用）
+tables:
+  - name: DAY18_ORDERS
+    synonyms:
+      - 注文
+      - 売上
+    description: 注文履歴テーブル（Day18用）
+    base_table:
+      database: SANDBOX
+      schema: PUBLIC
+      table: DAY18_ORDERS
+    primary_key:
+      columns:
+        - ORDER_ID
+    dimensions:
+      - name: CUSTOMER_NAME
+        synonyms:
+          - 顧客名
+          - 購入者
+        description: 顧客名
+        expr: customer_name
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+      - name: ORDER_DATE
+        description: 注文日
+        expr: order_date
+        data_type: DATE
+        access_modifier: public_access
+      - name: PRODUCT_CATEGORY
+        synonyms:
+          - カテゴリ
+          - 商品分類
+        description: 商品カテゴリ
+        expr: product_category
+        data_type: VARCHAR(16777216)
+        access_modifier: public_access
+    metrics:
+      - name: ORDER_COUNT
+        synonyms:
+          - 注文件数
+        description: 注文の件数
+        expr: COUNT(day18_orders.order_id)
+        access_modifier: public_access
+      - name: TOTAL_AMOUNT
+        synonyms:
+          - 売上合計
+          - 合計金額
+        description: 売上金額の合計
+        expr: SUM(day18_orders.amount)
+        access_modifier: public_access

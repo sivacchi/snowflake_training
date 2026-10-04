@@ -1,0 +1,1 @@
+ALTER USER sivacchi SET TIMEZONE = 'Asia/Tokyo';
